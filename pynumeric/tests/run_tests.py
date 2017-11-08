@@ -21,13 +21,13 @@ from datetime import datetime
 import os
 import unittest
 
-from pynumerica import InvalidDataError, load, loads, Numerica
+from pynumeric import InvalidDataError, load, loads, Numeric
 
 THISDIR = os.path.dirname(os.path.realpath(__file__))
 
 
-class NumericaTest(unittest.TestCase):
-    """Test suite for package pynumerica"""
+class NumericTest(unittest.TestCase):
+    """Test suite for package pynumeric"""
     def setUp(self):
         """setup test fixtures, etc."""
 
@@ -41,14 +41,14 @@ class NumericaTest(unittest.TestCase):
             if os.path.isfile(testfile_):
                 os.remove(testfile_)
 
-    def test_numerica(self):
-        """test reading numerica files or strings"""
+    def test_numeric(self):
+        """test reading numeric files or strings"""
 
-        # test reading a non-numerica file:
+        # test reading a non-numeric file:
         with self.assertRaises(InvalidDataError):
-            filename = get_abspath('non-numerica-file.dat')
+            filename = get_abspath('non-numeric-file.dat')
             with open(filename) as ff:
-                n = Numerica(ff)
+                n = Numeric(ff)
 
         filepath = '201611212330:PRECIPET,125,18,MPRATE_QPE,PRECIPET_QC_PARAMETERS_CMC:PRECIPET_NUMERIC_MMHR_WHK'  # noqa
 
@@ -63,7 +63,7 @@ class NumericaTest(unittest.TestCase):
             n = loads(data)
 
         with open(get_abspath(filepath)) as ff:  # noqa
-            n = Numerica(ff, filename='test')
+            n = Numeric(ff, filename='test')
 
             # test core properties
             self.assertEqual(n.filename, 'test')

@@ -1,8 +1,11 @@
-# pynumerica
+# pynumeric
+
+[![Build Status](https://travis-ci.org/ECCC-MSC/pynumeric.png)](https://travis-ci.org/ECCC-MSC/pynumeric)
+[![Coverage Status](https://coveralls.io/repos/github/ECCC-MSC/pynumeric/badge.svg?branch=master)](https://coveralls.io/github/ECCC-MSC/pynumeric?branch=master)
 
 ## Overview
 
-pynumerica is a Python package to read MSC URP Radar Numeric data.
+pynumeric is a Python package to read MSC Radar Numeric data.
 
 ## Installation
 
@@ -12,19 +15,19 @@ pynumerica is a Python package to read MSC URP Radar Numeric data.
 
 ### Dependencies
 Dependencies are listed in [requirements.txt](requirements.txt). Dependencies
-are automatically installed during pynumerica installation.
+are automatically installed during pynumeric installation.
 
-### Installing pynumerica
+### Installing pynumeric
 
 ```bash
 # setup virtualenv
-virtualenv --system-site-packages -p python3 pynumerica
-cd pynumerica
+virtualenv --system-site-packages -p python3 pynumeric
+cd pynumeric
 source bin/activate
 
 # clone codebase and install
-git clone https://github.com/ECCC-MSC/pynumerica.git
-cd pynumerica
+git clone https://github.com/ECCC-MSC/pynumeric.git
+cd pynumeric
 python setup.py build
 python setup.py install
 ```
@@ -33,22 +36,22 @@ python setup.py install
 
 ```bash
 # help
-pynumerica --help
+pynumeric --help
 
-# parse a single numerica file
-pynumerica -f </path/to/numerica_file>
+# parse a single numeric file
+pynumeric -f </path/to/numeric_file>
 
 # add verbose mode (ERROR, WARNING, INFO, DEBUG)
-pynumerica -f </path/to/numerica_file> --verbosity=DEBUG
+pynumeric -f </path/to/numeric_file> --verbosity=DEBUG
 ```
 
 ### Using the API
 ```python
-from pynumerica import Numeric
+from pynumeric import Numeric
 
-# read Numerica data
+# read Numeric data
 with open('/path/to/file') as ff:
-    n = Numerica(ff)
+    n = Numeric(ff)
 
     for key, value in n.metadata:
         print(key, value)
@@ -66,14 +69,14 @@ with open('/path/to/file') as ff:
     print(n.get_data_extent())
 
 
-# read Numerica data using convenience functions
+# read Numeric data using convenience functions
 # parse file
-s = load('/path/to/numerica_file.dat')  # returns Numerica object
+s = load('/path/to/numeric_file.dat')  # returns Numeric object
 
 # parse data string
-with open('/path/to/numerica_file.dat') as ff:
-    numerica_string = ff.read()
-s = loads(numerica_string)  # returns Numerica object
+with open('/path/to/numeric_file.dat') as ff:
+    numeric_string = ff.read()
+s = loads(numeric_string)  # returns Numeric object
 
 # export to GeoTIFF
 # Supported are any of the supported GDAL
@@ -93,13 +96,13 @@ pip install requirements-dev.txt
 pip install -r requirements-dev.txt
 
 # run tests like this:
-python pynumerica/tests/run_tests.py
+python pynumeric/tests/run_tests.py
 
 # or this:
 python setup.py test
 
 # measure code coverage
-coverage run --source=pynumerica -m unittest pynumerica.tests.run_tests
+coverage run --source=pynumeric -m unittest pynumeric.tests.run_tests
 coverage report -m
 ```
 
@@ -121,7 +124,7 @@ find . -type f -name "*.py" | xargs flake8
 
 ## Bugs and Issues
 
-All bugs, enhancements and issues are managed on [GitHub](https://github.com/ECCC-MSC/pynumerica/issues).
+All bugs, enhancements and issues are managed on [GitHub](https://github.com/ECCC-MSC/pynumeric/issues).
 
 ## Contact
 

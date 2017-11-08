@@ -33,17 +33,17 @@ __version__ = '0.1.0'
 LOGGER = logging.getLogger(__name__)
 
 
-class Numerica(object):
-    """MSC URP Numerica object model"""
+class Numeric(object):
+    """MSC URP Numeric object model"""
 
     def __init__(self, ioobj=None, filename=None):
         """
-        Initialize a Numerica object
+        Initialize a Numeric object
 
         :param iooobj: file or StringIO object
         :param filename: filename (optional)
 
-        :returns: pynumerica.Numerica instance
+        :returns: pynumeric.Numeric instance
         """
 
         self.filename = filename
@@ -60,10 +60,10 @@ class Numerica(object):
 
         filelines = ioobj.readlines()
 
-        LOGGER.debug('Detecting if file is a Numerica file')
-        is_numerica = [s for s in filelines if 'MajorProductType RADAR' in s]
-        if not is_numerica:
-            raise InvalidDataError('Unable to detect Numerica format')
+        LOGGER.debug('Detecting if file is a Numeric file')
+        is_numeric = [s for s in filelines if 'MajorProductType RADAR' in s]
+        if not is_numeric:
+            raise InvalidDataError('Unable to detect Numeric format')
 
         LOGGER.debug('Parsing lines')
         for line in filelines:
@@ -110,7 +110,7 @@ class Numerica(object):
 
     def to_grid(self, filename='out.tif', fmt='GTiff'):
         """
-        transform numerica data into raster grid
+        transform numeric data into raster grid
 
         :param filename: filename of output file
         :param fmt: file format.  Supported are any of the supported GDAL
@@ -184,35 +184,35 @@ class InvalidDataError(Exception):
 
 def load(filename):
     """
-    Parse Numerica data from from file
+    Parse Numeric data from from file
     :param filename: filename
-    :returns: pynumerica.Numerica object
+    :returns: pynumeric.Numeric object
     """
 
     with open(filename) as ff:
-        return Numerica(ff, filename=filename)
+        return Numeric(ff, filename=filename)
 
 
 def loads(strbuf):
     """
-    Parse Numerica data from string
-    :param strbuf: string representation of Numerica data
-    :returns: pynumerica.Numerica object
+    Parse Numeric data from string
+    :param strbuf: string representation of Numeric data
+    :returns: pynumeric.Numeric object
     """
 
     s = StringIO(strbuf)
-    return Numerica(s)
+    return Numeric(s)
 
 
 @click.command()
 @click.version_option(version=__version__)
 @click.option('--file', '-f', 'file_',
               type=click.Path(exists=True, resolve_path=True),
-              help='Path to Numerica data file')
+              help='Path to Numeric data file')
 @click.option('--verbosity', type=click.Choice(['ERROR', 'WARNING',
               'INFO', 'DEBUG']), help='Verbosity')
-def numerica_info(file_, verbosity):
-    """parse Numerica data files"""
+def numeric_info(file_, verbosity):
+    """parse Numeric data files"""
 
     if verbosity is not None:
         logging.basicConfig(level=getattr(logging, verbosity))
@@ -222,8 +222,8 @@ def numerica_info(file_, verbosity):
 
     with open(file_) as fh:
         try:
-            n = Numerica(fh, filename=file_)
-            click.echo('Numerica file: {}\n'.format(n.filename))
+            n = Numeric(fh, filename=file_)
+            click.echo('Numeric file: {}\n'.format(n.filename))
             click.echo('Metadata:')
             for key, value in n.metadata.items():
                 click.echo(' {}: {}'.format(key, value))

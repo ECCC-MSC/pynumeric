@@ -37,7 +37,7 @@ class PyTest(Command):
     def run(self):
         import subprocess
         errno = subprocess.call([sys.executable,
-                                 'pynumerica/tests/run_tests.py'])
+                                 'pynumeric/tests/run_tests.py'])
         raise SystemExit(errno)
 
 
@@ -51,7 +51,7 @@ def read(filename, encoding='utf-8'):
 
 def get_package_version():
     """get version from top-level package init"""
-    version_file = read('pynumerica/__init__.py')
+    version_file = read('pynumeric/__init__.py')
     version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
                               version_file, re.M)
     if version_match:
@@ -66,36 +66,34 @@ except(IOError, ImportError, OSError):
     print('Conversion to rST failed.  Using default (will look weird on PyPI)')
     LONG_DESCRIPTION = read('README.md')
 
-DESCRIPTION = ('pynumerica is a Python package to read MSC URP Radar '
-               'Numeric data')
+DESCRIPTION = ('pynumeric is a Python package to read MSC Radar Numeric data')
 
 if os.path.exists('MANIFEST'):
     os.unlink('MANIFEST')
 
 setup(
-    name='pynumerica',
+    name='pynumeric',
     version=get_package_version(),
     description=DESCRIPTION.strip(),
     long_description=LONG_DESCRIPTION,
     license='GPLv3',
     platforms='all',
     keywords=' '.join([
-        'numerica',
+        'numeric',
         'radar',
-        'urp',
         'msc'
     ]),
     author='Meteorological Service of Canada',
     author_email='tom.kralidis@canada.ca',
     maintainer='Meteorological Service of Canada',
     maintainer_email='tom.kralidis@canada.ca',
-    url='https://github.com/ECCC-MSC/pynumerica.git',
+    url='https://github.com/ECCC-MSC/pynumeric.git',
     install_requires=read('requirements.txt').splitlines(),
-    packages=find_packages(exclude=['pynumerica.tests']),
+    packages=find_packages(exclude=['pynumeric.tests']),
     include_package_data=True,
     entry_points={
         'console_scripts': [
-            'pynumerica=pynumerica:numerica_info'
+            'pynumeric=pynumeric:numeric_info'
         ]
     },
     classifiers=[
