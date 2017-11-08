@@ -1,0 +1,11 @@
+[run]
+source=pynumerica
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    def numerica_info
+    if __name__ == .__main__.:
+omit =
+    pynumerica/tests/*
