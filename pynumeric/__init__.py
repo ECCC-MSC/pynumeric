@@ -27,6 +27,7 @@ try:
     from osgeo import gdal, ogr, osr
     HAS_GDAL = True
 except ImportError:
+    print("GDAL ERROR")
     HAS_GDAL = False
 
 from six import StringIO
@@ -212,21 +213,27 @@ def loads(strbuf):
     return Numeric(s)
 
 
-@click.command()
+@click.group()
 @click.version_option(version=__version__)
+def cli():
+    pass
+
+
+@click.command()
+@click.pass_context
 @click.option('--file', '-f', 'file_',
               type=click.Path(exists=True, resolve_path=True),
               help='Path to Numeric data file')
 @click.option('--verbosity', type=click.Choice(['ERROR', 'WARNING',
               'INFO', 'DEBUG']), help='Verbosity')
-def numeric_info(file_, verbosity):
+def report(ctx, file_, verbosity):
     """parse Numeric data files"""
 
     if verbosity is not None:
         logging.basicConfig(level=getattr(logging, verbosity))
 
     if file_ is None:
-        raise click.ClickException('Missing --file argument')
+        raise click.ClickException('Missing argument')
 
     with open(file_) as fh:
         try:
@@ -244,3 +251,39 @@ def numeric_info(file_, verbosity):
                 data_range[0], data_range[1]))
         except Exception as err:
             raise click.ClickException(str(err))
+
+
+@click.command()
+@click.pass_context
+@click.option('--file', '-f', 'file_in',
+              type=click.Path(exists=True, resolve_path=True),
+              help='Path to Numeric data file')
+@click.option('--output', '-o', 'file_out',
+              type=click.Path(exists=False, resolve_path=True),
+              help='Path to output data file')
+@click.option('--format', '-of', 'format_', help='Output format')
+@click.option('--verbosity', type=click.Choice(['ERROR', 'WARNING',
+              'INFO', 'DEBUG']), help='Verbosity')
+def export(ctx, file_in, file_out, format_, verbosity):
+    """parse Numeric data files"""
+
+    if verbosity is not None:
+        logging.basicConfig(level=getattr(logging, verbosity))
+
+    if file_in is None or file_out is None or format_ is None:
+        raise click.ClickException('Missing arguments')
+
+    with open(file_in) as fh:
+        try:
+            click.echo('Exporting {} to {} ({})'.format(file_in,
+                       file_out, format_))
+            n = Numeric(fh, filename=file_in)
+            status = n.to_grid(filename=file_out, fmt=format_)
+            if status:
+                click.echo('Done')
+        except Exception as err:
+            raise click.ClickException(str(err))
+
+
+cli.add_command(report)
+cli.add_command(export)

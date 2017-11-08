@@ -5,7 +5,11 @@ source=pynumeric
 exclude_lines =
     pragma: no cover
     def __repr__
-    def numeric_info
+    def report
+    def export
+    def cli
     if __name__ == .__main__.:
+    ImportError
+    HAS_GDAL
 omit =
     pynumeric/tests/*

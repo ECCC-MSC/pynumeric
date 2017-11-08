@@ -38,11 +38,18 @@ python setup.py install
 # help
 pynumeric --help
 
-# parse a single numeric file
-pynumeric -f </path/to/numeric_file>
+# report on a single numeric file
+pynumeric report -f </path/to/numeric_file>
 
 # add verbose mode (ERROR, WARNING, INFO, DEBUG)
-pynumeric -f </path/to/numeric_file> --verbosity=DEBUG
+pynumeric report -f </path/to/numeric_file> --verbosity=DEBUG
+
+# export a numeric file to GeoTIFF
+pynumeric export -f </path/to/numeric_file> -o foo.tif -of GTiff
+
+# export a numeric file to NetCDF
+pynumeric export -f </path/to/numeric_file> -o foo.tif -of NetCDF
+
 ```
 
 ### Using the API

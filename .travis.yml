@@ -1,5 +1,8 @@
 language: python
 
+virtualenv:
+  system_site_packages: true
+
 addons:
   apt:
     packages:
@@ -17,14 +20,13 @@ install:
   - sudo apt-get install -y gdal-bin libgdal20 libgdal-dev python-gdal python3-gdal
 
   - pip install -r requirements-dev.txt
-  - pip install -r requirements-gdal.txt
   - pip install coveralls
   - python setup.py install
 
 script:
   - python setup.py test
   - find . -type f -name "*.py" | xargs flake8
-  - python setup.py --long-description | rst2html5.py
+#  - python setup.py --long-description | rst2html5.py
 
 after_success:
   - coverage run --source=pynumeric -m unittest pynumeric.tests.run_tests
