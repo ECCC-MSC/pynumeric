@@ -23,7 +23,12 @@ from datetime import datetime
 import logging
 import os
 
-from osgeo import gdal, ogr, osr
+try:
+    from osgeo import gdal, ogr, osr
+    HAS_GDAL = True
+except ImportError:
+    HAS_GDAL = False
+
 from six import StringIO
 
 import click
@@ -118,6 +123,9 @@ class Numeric(object):
 
         :returns: boolean (file saved on disk)
         """
+
+        if not HAS_GDAL:
+            raise RuntimeError('GDAL Python package is required')
 
         LOGGER.debug('Creating OGR vector layer in memory')
         vsource = ogr.GetDriverByName('MEMORY').CreateDataSource('memory')
