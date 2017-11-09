@@ -41,6 +41,25 @@ class PyTest(Command):
         raise SystemExit(errno)
 
 
+class PyCoverage(Command):
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        import subprocess
+
+        errno = subprocess.call(['coverage', 'run', '--source=pynumeric',
+                                 '-m', 'unittest',
+                                 'pynumeric.tests.run_tests'])
+        errno = subprocess.call(['coverage', 'report', '-m'])
+        raise SystemExit(errno)
+
+
 def read(filename, encoding='utf-8'):
     """read file contents"""
     full_path = os.path.join(os.path.dirname(__file__), filename)
@@ -105,5 +124,5 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python'
     ],
-    cmdclass={'test': PyTest},
+    cmdclass={'test': PyTest, 'coverage': PyCoverage},
 )

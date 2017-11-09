@@ -25,10 +25,9 @@ import os
 
 try:
     from osgeo import gdal, ogr, osr
-    HAS_GDAL = True
+    __gdal_version__ = gdal.__version__
 except ImportError:
-    print("GDAL ERROR")
-    HAS_GDAL = False
+    __gdal_version__ = None
 
 from six import StringIO
 
@@ -125,7 +124,7 @@ class Numeric(object):
         :returns: boolean (file saved on disk)
         """
 
-        if not HAS_GDAL:
+        if __gdal_version__ is None:
             raise RuntimeError('GDAL Python package is required')
 
         LOGGER.debug('Creating OGR vector layer in memory')
@@ -213,9 +212,21 @@ def loads(strbuf):
     return Numeric(s)
 
 
+def gdal_version_callback(ctx, param, value):
+    if not value or ctx.resilient_parsing:
+        return
+    click.echo(__gdal_version__)
+    ctx.exit()
+
+
 @click.group()
 @click.version_option(version=__version__)
-def cli():
+@click.option('--gdal-version', is_flag=True, is_eager=True,
+              callback=gdal_version_callback,
+              help='Show the GDAL version and exit.')
+def cli(gdal_version):
+    if gdal_version:
+        click.echo(__gdal_version__)
     pass
 
 

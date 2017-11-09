@@ -7,9 +7,10 @@ exclude_lines =
     def __repr__
     def report
     def export
+    def gdal_version_callback
     def cli
     if __name__ == .__main__.:
     ImportError
-    HAS_GDAL
+    __gdal_version__
 omit =
     pynumeric/tests/*

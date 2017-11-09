@@ -21,7 +21,7 @@ from datetime import datetime
 import os
 import unittest
 
-from pynumeric import HAS_GDAL, InvalidDataError, load, loads, Numeric
+from pynumeric import __gdal_version__, InvalidDataError, load, loads, Numeric
 
 THISDIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -44,7 +44,7 @@ class NumericTest(unittest.TestCase):
     def test_gdal(self):
         """test for GDAL support"""
 
-        self.assertIsInstance(HAS_GDAL, bool)
+        self.assertIsInstance(__gdal_version__, str)
 
     def test_numeric(self):
         """test reading numeric files or strings"""

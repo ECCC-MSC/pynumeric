@@ -38,6 +38,12 @@ python setup.py install
 # help
 pynumeric --help
 
+# get pynumeric version
+pynumeric --version
+
+# get pynumeric GDAL version
+pynumeric --gdal-version
+
 # report on a single numeric file
 pynumeric report -f </path/to/numeric_file>
 
@@ -108,9 +114,12 @@ python pynumeric/tests/run_tests.py
 # or this:
 python setup.py test
 
-# measure code coverage
+# measure code coverage like this
 coverage run --source=pynumeric -m unittest pynumeric.tests.run_tests
 coverage report -m
+
+# or this:
+python setup.py coverage
 ```
 
 ## Releasing
