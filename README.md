@@ -5,7 +5,7 @@
 
 ## Overview
 
-pynumeric is a Python package to read MSC Radar Numeric data.
+pynumeric is a Python package to read [MSC Radar Numeric data](http://collaboration.cmc.ec.gc.ca/cmc/CMOI/produits/samples/radar/vscan/Radar_Products_Available_CMC_Mai_2015_external.pdf).
 
 ## Installation
 
