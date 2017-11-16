@@ -9,6 +9,13 @@ pynumeric is a Python package to read MSC Radar Numeric data.
 
 ## Installation
 
+The easiest way to install pynumeric is via the Python [pip](https://pip.pypa.io/en/stable/)
+utility:
+
+```bash
+pip install pynumeric
+```
+
 ### Requirements
 - Python 3.  Works with Python 2.7
 - [virtualenv](https://virtualenv.pypa.io/)
@@ -126,6 +133,7 @@ python setup.py coverage
 
 ```bash
 python setup.py sdist bdist_wheel --universal
+twine upload dist/*
 ```
 
 ## Code Conventions

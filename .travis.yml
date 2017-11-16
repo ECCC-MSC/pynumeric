@@ -26,7 +26,7 @@ install:
 script:
   - python setup.py test
   - find . -type f -name "*.py" | xargs flake8
-#  - python setup.py --long-description | rst2html5.py
+  - python setup.py --long-description | rst2html5.py
 
 after_success:
   - coverage run --source=pynumeric -m unittest pynumeric.tests.run_tests
