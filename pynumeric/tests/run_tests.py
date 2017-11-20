@@ -81,7 +81,7 @@ class NumericTest(unittest.TestCase):
                              datetime(2016, 11, 21, 23, 30))
             self.assertEqual(n.metadata['LatCentre'], 53.56050)
             self.assertEqual(n.metadata['LonCentre'], -114.14470)
-            self.assertEqual(n.metadata['HornHeight'], 17)
+            self.assertEqual(n.metadata['HornHeight'], '17')
             self.assertEqual(n.metadata['Width'], 480)
             self.assertEqual(n.metadata['Height'], 480)
 
