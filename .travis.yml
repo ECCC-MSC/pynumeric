@@ -27,6 +27,7 @@ script:
   - python setup.py test
   - find . -type f -name "*.py" | xargs flake8
   - python setup.py --long-description | rst2html5.py
+  - pynumeric export -f pynumeric/tests/201611212330:PRECIPET,125,18,MPRATE_QPE,PRECIPET_QC_PARAMETERS_CMC:PRECIPET_NUMERIC_MMHR_WHK -o /tmp/test-output.tif -of GTiff
 
 after_success:
   - coverage run --source=pynumeric -m unittest pynumeric.tests.run_tests

@@ -165,8 +165,9 @@ class Numeric(object):
         maxy = ((self.metadata['LatCentre'] + resy * (height / 2)) -
                 (resy / 2))
 
-        dsource = gdal.GetDriverByName(fmt).Create(filename, width, height,
-                                                   1, gdal.GDT_Float64)
+        dsource = gdal.GetDriverByName(str(fmt)).Create(filename, width,
+                                                        height, 1,
+                                                        gdal.GDT_Float64)
 
         dsource.SetProjection(srs.ExportToWkt())
 
